@@ -4,7 +4,6 @@
 ![GitHub forks](https://img.shields.io/github/forks/caglarop/altv-server-manager?style=social)
 ![GitHub issues](https://img.shields.io/github/issues/caglarop/altv-server-manager)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/caglarop/altv-server-manager)
-![GitHub license](https://img.shields.io/github/license/caglarop/altv-server-manager)
 
 AltV Server Manager is a web application designed to simplify the management of AltV servers. It provides a user-friendly interface for server administrators, allowing them to monitor and control their servers with ease.
 
