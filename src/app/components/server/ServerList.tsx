@@ -1,20 +1,19 @@
 "use client";
 
 import type { AltVServer } from "@/lib/altv/types";
+import { useAppStore } from "@/store/AppStore";
 import { api } from "@/trpc/react";
 import type { Server } from "@prisma/client";
 import clsx from "clsx";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export function ServerList() {
   const servers = api.server.getAll.useQuery();
 
   const checkStatus = api.server.checkStatus.useMutation();
 
-  const [serverInfos, setServerInfos] = useState<Record<string, AltVServer>>(
-    {},
-  );
+  const { serverInfos, setServerInfos } = useAppStore();
 
   useEffect(() => {
     if (servers.data) {
@@ -23,13 +22,12 @@ export function ServerList() {
           .mutateAsync({ serverId: server.id })
           .catch(console.error);
 
-        setServerInfos(
-          (prev: Record<string, AltVServer>) =>
-            ({
-              ...prev,
-              [server.id]: serverInfo,
-            }) as Record<string, AltVServer>,
-        );
+        const newServerInfos = {
+          ...serverInfos,
+          [server.id]: serverInfo,
+        };
+
+        setServerInfos(newServerInfos as Record<string, AltVServer>);
       });
     }
   }, [servers.data]);

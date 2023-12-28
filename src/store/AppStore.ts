@@ -1,3 +1,4 @@
+import type { AltVServer } from "@/lib/altv/types";
 import type { Server } from "@prisma/client";
 import { create } from "zustand";
 
@@ -8,6 +9,9 @@ export interface AppStore {
 
   servers: Server[];
   setServers: (servers: Server[]) => void;
+
+  serverInfos: Record<string, AltVServer>;
+  setServerInfos: (serverInfos: Record<string, AltVServer>) => void;
 }
 
 export const useAppStore = create<AppStore>((set) => ({
@@ -17,4 +21,7 @@ export const useAppStore = create<AppStore>((set) => ({
 
   servers: [],
   setServers: (servers) => set(() => ({ servers })),
+
+  serverInfos: {},
+  setServerInfos: (serverInfos) => set(() => ({ serverInfos })),
 }));
