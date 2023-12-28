@@ -32,6 +32,24 @@ export const serverRouter = createTRPCRouter({
     });
   }),
 
+  getServer: protectedProcedure
+    .input(z.object({ serverId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const server = await ctx.db.server.findUnique({
+        where: { id: input.serverId },
+      });
+
+      if (!server) {
+        throw new Error("SERVER_NOT_FOUND");
+      }
+
+      if (server.createdById !== ctx.session.user.id) {
+        throw new Error("SERVER_NOT_FOUND");
+      }
+
+      return server;
+    }),
+
   checkStatus: protectedProcedure
     .input(z.object({ serverId: z.string() }))
     .mutation(async ({ ctx, input }): Promise<boolean> => {

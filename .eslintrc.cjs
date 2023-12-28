@@ -23,6 +23,7 @@ const config = {
         fixStyle: "inline-type-imports",
       },
     ],
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
     "@typescript-eslint/no-namespace": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/await-thenable": "off",

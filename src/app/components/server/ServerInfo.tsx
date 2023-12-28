@@ -1,11 +1,12 @@
 "use client";
 
+import type { Server } from "@prisma/client";
 import { useEffect } from "react";
 
-export default function ServerInfo(params: { serverId: string }) {
+export default function ServerInfo({ data }: { data: Server }) {
   useEffect(() => {
-    console.log(params);
-  }, [params]);
+    console.log(data);
+  }, [data]);
 
-  return <>Server #{params.serverId}</>;
+  return <>Server #{data.id}</>;
 }

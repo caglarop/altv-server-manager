@@ -3,6 +3,8 @@
 import { useState } from "react";
 
 import { api } from "@/trpc/react";
+import Input from "../input/Input";
+import Button from "../button/Button";
 
 export function CreateServer() {
   const servers = api.server.getAll.useQuery();
@@ -29,29 +31,21 @@ export function CreateServer() {
       className="flex flex-col gap-2"
     >
       <h2 className="text-xs font-semibold text-gray-500">CREATE SERVER</h2>
-      <input
-        type="text"
+      <Input
         placeholder="Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="w-full rounded px-4 py-2 text-black outline-none ring-0"
       />
 
-      <input
-        type="text"
+      <Input
         placeholder="Server ID"
         value={serverId}
         onChange={(e) => setServerId(e.target.value)}
-        className="w-full rounded px-4 py-2 text-black outline-none ring-0"
       />
 
-      <button
-        type="submit"
-        className="rounded bg-white/10 px-10 py-3 font-semibold transition hover:bg-primary hover:text-[#0d0d0d]"
-        disabled={create.isLoading}
-      >
+      <Button disabled={create.isLoading}>
         {create.isLoading ? "Creating..." : "Create"}
-      </button>
+      </Button>
     </form>
   );
 }
