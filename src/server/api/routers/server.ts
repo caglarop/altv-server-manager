@@ -2,6 +2,7 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import type { Server } from "@prisma/client";
 import { getServerByServerId } from "@/lib/altv/altv";
+import { installAltVServer } from "@/utils/altv/server";
 
 export const serverRouter = createTRPCRouter({
   create: protectedProcedure
@@ -21,6 +22,8 @@ export const serverRouter = createTRPCRouter({
           createdBy: { connect: { id: ctx.session.user.id } },
         },
       });
+
+      installAltVServer(server.id).catch(console.error);
 
       return server;
     }),
