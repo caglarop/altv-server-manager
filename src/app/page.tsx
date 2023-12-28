@@ -1,8 +1,8 @@
 import { getServerAuthSession } from "@/server/auth";
-import NotSignedIn from "./_components/mixed/auth/NotSignedIn";
-import DefaultLayout from "./_components/layouts/DefaultLayout";
+import NotSignedIn from "./components/mixed/auth/NotSignedIn";
+import DefaultLayout from "./components/layouts/DefaultLayout";
 
-export default async function AdminPanel() {
+export default async function Page() {
   const session = await getServerAuthSession();
 
   if (!session) {

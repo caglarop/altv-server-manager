@@ -1,5 +1,5 @@
 import Link from "next/link";
-import AltVIcon from "@/app/_components/icons/AltVIcon";
+import AltVIcon from "@/app/components/icons/AltVIcon";
 
 export default function Logo() {
   return (
