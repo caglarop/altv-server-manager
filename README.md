@@ -1,28 +1,47 @@
-# Create T3 App
+# AltV Server Manager
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+![GitHub stars](https://img.shields.io/github/stars/caglarop/altv-server-manager?style=social)
+![GitHub forks](https://img.shields.io/github/forks/caglarop/altv-server-manager?style=social)
+![GitHub issues](https://img.shields.io/github/issues/caglarop/altv-server-manager)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/caglarop/altv-server-manager)
+![GitHub license](https://img.shields.io/github/license/caglarop/altv-server-manager)
 
-## What's next? How do I make an app with this?
+AltV Server Manager is a web application designed to simplify the management of AltV servers. It provides a user-friendly interface for server administrators, allowing them to monitor and control their servers with ease.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Features
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- Server Monitoring: Keep track of your server's performance and status in real-time.
+- User Management: Manage your server's users with a simple and intuitive interface.
+- Server Control: Start, stop, and restart your server with just a few clicks.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Installation
 
-## Learn More
+1. Clone the repository:
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+```bash
+git clone https://github.com/caglarop/altv-server-manager.git
+```
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+2. Install the dependencies:
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+```bash
+npm install
+```
 
-## How do I deploy this?
+3. Start the development server:
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+```bash
+npm run dev
+```
+
+## Usage
+
+After starting the development server, open your web browser and navigate to `http://localhost:3000`. From there, you can add your AltV servers and start managing them.
+
+## Contributing
+
+Contributions are welcome! If you have a feature request, bug report, or proposal for code improvement, please feel free to open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
