@@ -19,7 +19,7 @@ export default async function Page({
 
   const data = await api.server.getServer.query({ id: params.id });
 
-  if (!data) {
+  if (!data || data.id !== params.id) {
     return redirect("/");
   }
 
