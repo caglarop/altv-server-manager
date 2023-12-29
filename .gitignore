@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+# node 
+package-lock.json
+
 # testing
 /coverage
 
@@ -41,4 +44,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-package-lock.json
+# server data
+/server-data/
