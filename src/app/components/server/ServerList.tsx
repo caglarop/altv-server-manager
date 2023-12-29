@@ -21,7 +21,11 @@ export function ServerList() {
               <div
                 className={clsx(
                   "flex h-2 w-2 animate-pulse items-center justify-center rounded-full",
-                  server.isInstalled ? "bg-green-500" : "bg-red-500",
+                  server.isInstalling
+                    ? "bg-yellow-500"
+                    : server.isInstalled
+                      ? "bg-green-500"
+                      : "bg-red-500",
                 )}
               ></div>
               <span>{server.name}</span>

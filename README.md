@@ -7,6 +7,8 @@
 
 AltV Server Manager is a web application designed to simplify the management of AltV servers. It provides a user-friendly interface for server administrators, allowing them to monitor and control their servers with ease.
 
+<img src="screenshot.png" />
+
 ## Features
 
 - Server Monitoring: Keep track of your server's performance and status in real-time.

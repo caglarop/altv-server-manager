@@ -80,8 +80,7 @@ export async function createServerConfig(
     return { status: "SERVER_CONFIG_UPDATED" };
   }
 
-  const config = `
-name = '${defaultCfg.name}'
+  const config = `name = '${defaultCfg.name}'
 port = ${port}
 players = ${defaultCfg.players}
 password = '${defaultCfg.password}'
@@ -94,8 +93,7 @@ description = '${defaultCfg.description}'
 modules = [${defaultCfg.modules.map((module) => `'${module}'`).join(", ")}]
 resources = [${defaultCfg.resources
     .map((resource) => `'${resource}'`)
-    .join(", ")}]
-`;
+    .join(", ")}]`;
 
   fs.writeFileSync(configPath, config);
 
