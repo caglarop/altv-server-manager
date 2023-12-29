@@ -9,6 +9,8 @@
 - [ ] Server configuration editor
 - [ ] Player list
 - [ ] Player management (e.g., banning)
+- [ ] Automatic port assignment during server creation
+- [ ] Check the port from the database every time the server starts
 
 ## Completed Features
 
