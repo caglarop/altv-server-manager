@@ -2,7 +2,6 @@
 
 import { useAppStore } from "@/store/AppStore";
 import { api } from "@/trpc/react";
-import type { Server } from "@prisma/client";
 import { SessionProvider } from "next-auth/react";
 import { useEffect } from "react";
 
@@ -18,7 +17,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    setServers(servers as Server[]);
+    setServers(servers);
   }, [servers]);
 
   return <SessionProvider>{children}</SessionProvider>;

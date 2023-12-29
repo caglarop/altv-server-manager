@@ -9,8 +9,6 @@
 - [ ] Server configuration editor
 - [ ] Player list
 - [ ] Player management (e.g., banning)
-- [ ] Automatic port assignment during server creation
-- [ ] Check the port from the database every time the server starts
 
 ## Completed Features
 
@@ -18,3 +16,5 @@
 - [x] Server creation
 - [x] Downloading the latest altv server based on the operating system (Windows/Linux) under `server-data`
 - [x] Accessing the server page in the backend
+- [x] Automatic port assignment during server creation
+- [x] Synchronize the port in the configuration file with the database port whenever a change is detected

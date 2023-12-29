@@ -4,6 +4,7 @@ import fs from "fs";
 import { SERVER_ASSETS } from "@/utils/altv/assets";
 import { downloadFile } from "@/utils/download";
 import getPlattform from "../utils";
+import { db } from "@/server/db";
 
 export function getServerLauncherData() {
   const serverPlatform = getPlattform();
@@ -20,57 +21,137 @@ export function getServerLauncherData() {
   return [launcherFormat, launcherPrefix, launcherCommand];
 }
 
-export async function createServerConfig(id: string) {
+export type ServerConfig = {
+  name: string;
+  port: number;
+  players: number;
+  announce: boolean;
+  gamemode: string;
+  language: string;
+  description: string;
+  modules: string[];
+  resources: string[];
+  website: string;
+  password: string;
+  token: string;
+};
+
+export async function createServerConfig(
+  id: string,
+  port: number,
+  defaultCfg: ServerConfig = {
+    name: "alt:V Server",
+    description: "alt:V Sample Server",
+    port: 7788,
+    players: 128,
+    announce: false,
+    gamemode: "Freeroam",
+    language: "en",
+    modules: ["js-module"],
+    resources: [],
+    website: "example.com",
+    password: "ultra-password",
+    token: "YOUR_TOKEN",
+  },
+) {
   const serverPath = path.join(process.cwd(), "server-data", id);
 
   const configPath = path.join(serverPath, "server.toml");
 
   if (!fs.existsSync(serverPath)) {
-    throw new Error(`SERVER_NOT_FOUND`);
+    return { status: "SERVER_NOT_FOUND" };
   }
 
   if (fs.existsSync(configPath)) {
-    throw new Error(`SERVER_CONFIG_ALREADY_EXISTS`);
+    const configLines = fs.readFileSync(configPath, "utf8").split("\n");
+
+    const portLineIndex = configLines.findIndex((line) =>
+      line.startsWith("port"),
+    );
+
+    if (portLineIndex !== -1) {
+      configLines.splice(portLineIndex, 1);
+    }
+
+    configLines.push(`port = ${port}`);
+
+    fs.writeFileSync(configPath, configLines.join("\n"));
+
+    return { status: "SERVER_CONFIG_UPDATED" };
   }
 
-  const config = `name = 'alt:V Server'
-port = 7788
-players = 128
-# password = 'ultra-password'
-announce = false
-# token = 'YOUR_TOKEN'
-gamemode = 'Freeroam'
-website = 'example.com'
-language = 'en'
-description = 'alt:V Sample Server'
-modules = ['js-module']
-resources = []`;
+  const config = `
+name = '${defaultCfg.name}'
+port = ${port}
+players = ${defaultCfg.players}
+password = '${defaultCfg.password}'
+announce = ${defaultCfg.announce}
+token = '${defaultCfg.token}'
+gamemode = '${defaultCfg.gamemode}'
+website = '${defaultCfg.website}'
+language = '${defaultCfg.language}'
+description = '${defaultCfg.description}'
+modules = [${defaultCfg.modules.map((module) => `'${module}'`).join(", ")}]
+resources = [${defaultCfg.resources
+    .map((resource) => `'${resource}'`)
+    .join(", ")}]
+`;
 
   fs.writeFileSync(configPath, config);
 
   return { status: "SERVER_CONFIG_CREATED" };
 }
 
-export async function installAltVServer(id: string) {
+export async function installAltVServer(id: string, forceUpdate = false) {
   console.log(`Installing server ${id}...`);
 
-  const { needUpdate } = await getAltVServerUpdateInfo(id);
+  try {
+    const server = await db.server.findUnique({
+      where: { id },
+    });
 
-  if (needUpdate) {
-    console.log(`Server ${id} needs update. Downloading...`);
+    if (!server) {
+      return { status: "SERVER_NOT_FOUND" };
+    }
 
-    await downloadAltVServer(id);
+    const { needUpdate } = await getAltVServerUpdateInfo(id);
 
-    await createServerConfig(id).catch(console.error);
+    if (needUpdate || forceUpdate) {
+      console.log(
+        needUpdate
+          ? `Server ${id} needs to be updated. Downloading server assets...`
+          : `Force update server ${id}. Downloading server assets...`,
+      );
 
-    return { status: "SERVER_UPDATED" };
-  } else {
+      await db.server
+        .update({
+          where: { id },
+          data: { isInstalling: true },
+        })
+        .catch(console.error);
+
+      await downloadAltVServer(id).catch(console.error);
+
+      await createServerConfig(id, server.port).catch(console.error);
+
+      await db.server.update({
+        where: { id },
+        data: { isInstalling: false, isInstalled: true },
+      });
+
+      return { status: "SERVER_UPDATED" };
+    }
+
     console.log(`Server ${id} is up to date.`);
 
-    await createServerConfig(id).catch(console.error);
-  }
+    await createServerConfig(id, server.port).catch(console.error);
 
-  return { status: "SERVER_UP_TO_DATE" };
+    return { status: "SERVER_UP_TO_DATE" };
+  } catch (error) {
+    console.error(error);
+
+    return { status: "ERROR", error };
+  }
 }
 
 export async function downloadAltVServer(id: string) {

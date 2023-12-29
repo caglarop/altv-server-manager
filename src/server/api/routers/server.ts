@@ -2,8 +2,23 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import type { Server } from "@prisma/client";
 import { installAltVServer } from "@/utils/altv/server";
-import fs from "fs";
-import path from "path";
+import { db } from "@/server/db";
+
+export async function findAvailablePort() {
+  const existingPorts = await db.server.findMany({
+    select: { port: true },
+  });
+
+  const usedPorts = new Set(existingPorts.map((server) => server.port));
+
+  let port = 7788;
+
+  while (usedPorts.has(port)) {
+    port++;
+  }
+
+  return port;
+}
 
 export const serverRouter = createTRPCRouter({
   create: protectedProcedure
@@ -17,14 +32,20 @@ export const serverRouter = createTRPCRouter({
         throw new Error("REACHED_SERVER_LIMIT");
       }
 
+      const port = await findAvailablePort();
+
+      if (!port) {
+        throw new Error("NO_AVAILABLE_PORT");
+      }
+
       const server = await ctx.db.server.create({
         data: {
           name: input.name,
+          isInstalled: false,
+          port,
           createdBy: { connect: { id: ctx.session.user.id } },
         },
       });
-
-      console.log(server.id);
 
       installAltVServer(server.id).catch(console.error);
 
@@ -37,20 +58,7 @@ export const serverRouter = createTRPCRouter({
       where: { createdBy: { id: ctx.session.user.id } },
     });
 
-    const serversWithInstallationStatus = servers.map((server) => {
-      const serverConfigPath = path.join(
-        process.cwd(),
-        "server-data",
-        server.id,
-        "server.toml",
-      );
-
-      const isInstalled = fs.existsSync(serverConfigPath);
-
-      return { ...server, isInstalled };
-    });
-
-    return serversWithInstallationStatus;
+    return servers;
   }),
 
   getServer: protectedProcedure

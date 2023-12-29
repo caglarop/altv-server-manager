@@ -69,8 +69,9 @@ model Server {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  ip        String?
-  port      Int?
+  isInstalling Boolean @default(true)
+  isInstalled  Boolean @default(false)
+  port         Int    @default(7788)
 
   createdBy   User   @relation(fields: [createdById], references: [id])
   createdById String
