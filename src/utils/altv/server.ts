@@ -52,6 +52,8 @@ resources = []`;
 }
 
 export async function installAltVServer(id: string) {
+  console.log(`Installing server ${id}...`);
+
   const { needUpdate } = await getAltVServerUpdateInfo(id);
 
   if (needUpdate) {
@@ -111,15 +113,11 @@ export async function getAltVServerUpdateInfo(id: string) {
 
   const serverPath = path.join(process.cwd(), "server-data", id);
 
-  if (!fs.existsSync(serverPath)) {
-    throw new Error(`SERVER_NOT_FOUND`);
-  }
-
   try {
     let needUpdate = false;
 
     const updateJsonAsset = SERVER_ASSETS.find((asset) =>
-      asset.filePath.endsWith("/update.json"),
+      asset[serverPlattform].endsWith("/update.json"),
     );
 
     if (!updateJsonAsset) {
@@ -154,8 +152,6 @@ export async function getAltVServerUpdateInfo(id: string) {
       updateJsonAsset,
     };
   } catch (error) {
-    console.error(`Failed to check server update: `, error);
-
-    return { needUpdate: false };
+    return { needUpdate: true };
   }
 }

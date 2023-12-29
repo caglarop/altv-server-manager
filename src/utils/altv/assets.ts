@@ -5,6 +5,11 @@ export const SERVER_ASSETS = [
     filePath: "./data",
   },
   {
+    windows: "https://cdn.alt-mp.com/data/release/data/vehmods.bin",
+    linux: "https://cdn.alt-mp.com/data/release/data/vehmods.bin",
+    filePath: "./data",
+  },
+  {
     windows: "https://cdn.alt-mp.com/data/release/data/vehmodels.bin",
     linux: "https://cdn.alt-mp.com/data/release/data/vehmodels.bin",
     filePath: "./data",

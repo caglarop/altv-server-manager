@@ -1,3 +1,6 @@
+"use client";
+
+import { useSession } from "next-auth/react";
 import Header from "../nav/Header";
 import Sidebar from "../sidebar/Sidebar";
 
@@ -6,6 +9,16 @@ export default function DefaultLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { status } = useSession();
+
+  if (status === "loading") {
+    return (
+      <div className="flex h-screen w-screen flex-col items-center justify-center gap-2 bg-[#0d0d0d] text-white">
+        <h2 className="text-lg">Loading...</h2>
+      </div>
+    );
+  }
+
   return (
     <div className="flex h-screen w-screen flex-col bg-[#0d0d0d] text-white">
       <Header />

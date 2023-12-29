@@ -9,5 +9,5 @@ export default async function Page() {
     return <NotSignedIn />;
   }
 
-  return <DefaultLayout>Main</DefaultLayout>;
+  return <DefaultLayout>Here you can manage your servers.</DefaultLayout>;
 }

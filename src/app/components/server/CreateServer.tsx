@@ -10,14 +10,12 @@ export function CreateServer() {
   const servers = api.server.getAll.useQuery();
 
   const [name, setName] = useState("");
-  const [serverId, setServerId] = useState("");
 
   const create = api.server.create.useMutation({
     onSuccess: async () => {
       await servers.refetch();
 
       setName("");
-      setServerId("");
     },
   });
 
@@ -26,7 +24,7 @@ export function CreateServer() {
       onSubmit={(e) => {
         e.preventDefault();
 
-        create.mutate({ name, serverId });
+        create.mutate({ name });
       }}
       className="flex flex-col gap-2"
     >
@@ -35,12 +33,6 @@ export function CreateServer() {
         placeholder="Name"
         value={name}
         onChange={(e) => setName(e.target.value)}
-      />
-
-      <Input
-        placeholder="Server ID"
-        value={serverId}
-        onChange={(e) => setServerId(e.target.value)}
       />
 
       <Button disabled={create.isLoading}>
