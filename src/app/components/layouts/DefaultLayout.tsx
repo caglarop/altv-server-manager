@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import Header from "../nav/Header";
 import Sidebar from "../sidebar/Sidebar";
+import { useEffect } from "react";
 
 export default function DefaultLayout({
   children,
@@ -18,6 +19,12 @@ export default function DefaultLayout({
       </div>
     );
   }
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      window.location.href = "/";
+    }
+  }, [status]);
 
   return (
     <div className="flex h-screen w-screen flex-col bg-[#0d0d0d] text-white">
