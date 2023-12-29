@@ -27,6 +27,10 @@ AltV Server Manager is a web application designed to simplify the management of 
 - [x] Accessing the server page in the backend
 - [x] Automatic port assignment during server creation
 - [x] Synchronize the port in the configuration file with the database port whenever a change is detected
+- [x] Server status indicators in the navigation sidebar:
+  - Green: The server is installed.
+  - Yellow: The server is currently being installed.
+  - Red: The server is neither installed nor being installed, and needs to be installed by pressing the install button.
 
 ## Installation
 
