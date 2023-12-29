@@ -4,8 +4,11 @@ import { api } from "@/trpc/react";
 import type { Server } from "@prisma/client";
 import clsx from "clsx";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
 export function ServerList() {
+  const params = useParams<{ id: string }>();
+
   const servers = api.server.getAll.useQuery();
 
   return (
@@ -15,7 +18,10 @@ export function ServerList() {
         {servers.data?.map((server: Server & { isInstalled?: boolean }) => (
           <li key={server.id}>
             <Link
-              className="flex cursor-pointer items-center gap-2 rounded text-gray-400 transition hover:text-white"
+              className={clsx(
+                "flex cursor-pointer items-center gap-2 rounded px-2 py-1 text-gray-400 transition hover:bg-white/10 hover:text-white",
+                params.id === server.id && "bg-white/10 text-white",
+              )}
               href={`/servers/${server.id}`}
             >
               <div
