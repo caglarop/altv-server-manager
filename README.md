@@ -9,11 +9,24 @@ AltV Server Manager is a web application designed to simplify the management of 
 
 <img src="screenshot.png" />
 
-## Features
+## Features to be Implemented
 
-- Server Monitoring: Keep track of your server's performance and status in real-time.
-- User Management: Manage your server's users with a simple and intuitive interface.
-- Server Control: Start, stop, and restart your server with just a few clicks.
+- [ ] Start server button
+- [ ] Stop server button
+- [ ] Restart server button
+- [ ] Live console
+- [ ] Server configuration editor
+- [ ] Player list
+- [ ] Player management (e.g., banning)
+
+## Completed Features
+
+- [x] Discord Login
+- [x] Server creation
+- [x] Downloading the latest altv server based on the operating system (Windows/Linux) under `server-data`
+- [x] Accessing the server page in the backend
+- [x] Automatic port assignment during server creation
+- [x] Synchronize the port in the configuration file with the database port whenever a change is detected
 
 ## Installation
 
