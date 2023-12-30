@@ -86,12 +86,12 @@ export const serverRouter = createTRPCRouter({
         where: { id: input.id },
       });
 
-      if (!server) {
+      if (!server || server.createdById !== ctx.session.user.id) {
         throw new Error("SERVER_NOT_FOUND");
       }
 
-      if (server.createdById !== ctx.session.user.id) {
-        throw new Error("SERVER_NOT_FOUND");
+      if (!server.isInstalled) {
+        throw new Error("SERVER_NOT_INSTALLED");
       }
 
       if (input.action === "start") {

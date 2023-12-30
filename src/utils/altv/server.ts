@@ -34,8 +34,12 @@ export type ServerConfig = {
   token: string;
 };
 
+export function getServerPath(id: string) {
+  return path.join(process.cwd(), "server-data", id);
+}
+
 export async function createLauncher(id: string) {
-  const serverPath = path.join(process.cwd(), "server-data", id);
+  const serverPath = getServerPath(id);
 
   const [launcherFormat, launcherPrefix, launcherCommand] =
     getServerLauncherData();
@@ -77,7 +81,7 @@ export async function createServerConfig(
     token: "YOUR_TOKEN",
   },
 ) {
-  const serverPath = path.join(process.cwd(), "server-data", id);
+  const serverPath = getServerPath(id);
 
   const configPath = path.join(serverPath, "server.toml");
 
@@ -180,7 +184,7 @@ export async function installAltVServer(id: string, forceUpdate = false) {
 export async function downloadAltVServer(id: string) {
   const serverPlattform = getPlattform();
 
-  const serverPath = path.join(process.cwd(), "server-data", id);
+  const serverPath = getServerPath(id);
 
   if (!fs.existsSync(serverPath)) {
     fs.mkdirSync(serverPath, { recursive: true });
@@ -215,7 +219,7 @@ export async function downloadAltVServer(id: string) {
 export async function getAltVServerUpdateInfo(id: string) {
   const serverPlattform = getPlattform();
 
-  const serverPath = path.join(process.cwd(), "server-data", id);
+  const serverPath = getServerPath(id);
 
   try {
     let needUpdate = false;
