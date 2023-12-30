@@ -78,4 +78,32 @@ export const serverRouter = createTRPCRouter({
 
       return server;
     }),
+
+  controlServer: protectedProcedure
+    .input(z.object({ id: z.string(), action: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const server = await ctx.db.server.findUnique({
+        where: { id: input.id },
+      });
+
+      if (!server) {
+        throw new Error("SERVER_NOT_FOUND");
+      }
+
+      if (server.createdById !== ctx.session.user.id) {
+        throw new Error("SERVER_NOT_FOUND");
+      }
+
+      if (input.action === "start") {
+        console.log(`Starting server ${server.id}...`);
+      } else if (input.action === "stop") {
+        console.log(`Stopping server ${server.id}...`);
+      } else if (input.action === "restart") {
+        console.log(`Restarting server ${server.id}...`);
+      } else {
+        throw new Error("INVALID_ACTION");
+      }
+
+      return server;
+    }),
 });

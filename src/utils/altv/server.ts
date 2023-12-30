@@ -13,9 +13,7 @@ export function getServerLauncherData() {
     serverPlatform === "windows" ? "server-launcher.bat" : "server-launcher.sh";
 
   const launcherPrefix =
-    serverPlatform === "windows"
-      ? "@echo off\ncall npm run start --silent"
-      : "#!/bin/bash\nset echo off\nnpm run start --silent";
+    serverPlatform === "windows" ? "@echo off" : "#!/bin/bash\nset echo off";
   const launcherCommand = "altv-server";
 
   return [launcherFormat, launcherPrefix, launcherCommand];
@@ -35,6 +33,31 @@ export type ServerConfig = {
   password: string;
   token: string;
 };
+
+export async function createLauncher(id: string) {
+  const serverPath = path.join(process.cwd(), "server-data", id);
+
+  const [launcherFormat, launcherPrefix, launcherCommand] =
+    getServerLauncherData();
+
+  const launcherPath = path.join(serverPath, launcherFormat!);
+
+  if (!fs.existsSync(serverPath)) {
+    return { status: "SERVER_NOT_FOUND" };
+  }
+
+  if (fs.existsSync(launcherPath)) {
+    return { status: "SERVER_LAUNCHER_EXISTS" };
+  }
+
+  fs.writeFileSync(
+    launcherPath,
+    `${launcherPrefix}\n${launcherCommand}`,
+    "utf8",
+  );
+
+  return { status: "SERVER_LAUNCHER_CREATED" };
+}
 
 export async function createServerConfig(
   id: string,
@@ -131,6 +154,7 @@ export async function installAltVServer(id: string, forceUpdate = false) {
       await downloadAltVServer(id).catch(console.error);
 
       await createServerConfig(id, server.port).catch(console.error);
+      await createLauncher(id).catch(console.error);
 
       await db.server.update({
         where: { id },
@@ -143,6 +167,7 @@ export async function installAltVServer(id: string, forceUpdate = false) {
     console.log(`Server ${id} is up to date.`);
 
     await createServerConfig(id, server.port).catch(console.error);
+    await createLauncher(id).catch(console.error);
 
     return { status: "SERVER_UP_TO_DATE" };
   } catch (error) {

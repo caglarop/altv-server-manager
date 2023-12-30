@@ -46,11 +46,11 @@ export default function Sidebar() {
   return (
     <aside
       ref={backdropRef}
-      className={`fixed flex transform flex-col overflow-y-auto bg-[#0d0d0d]/50 backdrop-blur transition-transform duration-200 ease-in-out md:relative ${
+      className={`fixed flex transform flex-col bg-[#0d0d0d]/50 backdrop-blur transition-transform duration-200 ease-in-out md:relative ${
         isNavOpen ? "translate-x-0" : "-translate-x-full"
       } h-full w-72 border-r border-[#282828] md:fixed md:translate-x-0`}
     >
-      <nav className="relative flex h-[calc(100%-64px)] flex-col gap-5 p-5 md:h-full">
+      <nav className="relative flex h-[calc(100%-64px)] flex-col gap-5 overflow-y-auto p-5 md:h-full">
         <div className="flex-grow">
           <div className="grid gap-4">
             <div className="flex flex-col gap-2">
@@ -66,7 +66,7 @@ export default function Sidebar() {
                 <li>
                   <Link
                     className={clsx(
-                      "flex cursor-pointer items-center gap-2 rounded px-2 py-1 text-gray-400 transition hover:text-white",
+                      "flex cursor-pointer items-center gap-2 rounded px-2 py-1 text-gray-400 transition hover:bg-white/10 hover:text-white",
                       pathName === "/" && "bg-white/10 text-white",
                     )}
                     href="/"
@@ -82,7 +82,9 @@ export default function Sidebar() {
         </div>
 
         <div className="flex-shrink-0">
-          <CreateServer />
+          <div className="">
+            <CreateServer />
+          </div>
         </div>
       </nav>
     </aside>
