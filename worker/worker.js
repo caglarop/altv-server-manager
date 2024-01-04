@@ -5,6 +5,7 @@ import { exec } from "child_process";
 import os from "os";
 import { fileURLToPath } from "url";
 import path, { dirname } from "path";
+import { moveAndRenameLog } from "./utils.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -21,24 +22,31 @@ app.get("/server/control/:id", (req, res) => {
     return;
   }
 
-  console.log(
-    `${action.charAt(0).toUpperCase() + action.slice(1)} server ${serverId}...`,
-  );
+  if (action === "start") {
+    console.log("Starting server " + serverId);
+  } else if (action === "stop") {
+    console.log("Stopping server " + serverId);
+  } else if (action === "restart") {
+    console.log("Restarting server " + serverId);
+  }
 
   const serverDir = path.join(__dirname, "../", "server-data", serverId);
   const scriptExtension = os.platform() === "win32" ? ".bat" : ".sh";
   const scriptPath = path.join(serverDir, `server-launcher${scriptExtension}`);
 
-  exec(`"${scriptPath}"`, { cwd: serverDir }, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`exec error: ${error}`);
-      res.status(500).send("SERVER_ERROR");
+  moveAndRenameLog(serverDir);
+
+  exec(`"${scriptPath}"`, { cwd: serverDir }, (err, stdout, stderr) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("ERROR");
       return;
     }
 
-    console.log(`stdout: ${stdout}`);
-    console.error(`stderr: ${stderr}`);
-    res.send("OK");
+    console.log(stdout);
+    console.error(stderr);
+
+    res.status(200).send("OK");
   });
 });
 
