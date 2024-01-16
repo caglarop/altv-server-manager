@@ -1,28 +1,22 @@
-
-![GitHub stars](https://img.shields.io/github/stars/caglarop/altv-server-manager?style=social)
-![GitHub forks](https://img.shields.io/github/forks/caglarop/altv-server-manager?style=social)
-![GitHub issues](https://img.shields.io/github/issues/caglarop/altv-server-manager)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/caglarop/altv-server-manager)
-
-## 📚 Table of Contents
+## Table of Contents
 
 - [AltV Server Manager](#altv-server-manager)
 - [Features to be Implemented](#features-to-be-implemented)
 - [Completed Features](#completed-features)
-- [🚀 Getting Started](#getting-started)
-  - [🛠️ Installation](#installation)
-  - [⚙️ Configuration](#configuration)
-  - [Starting](#🎬-starting)
+- [Getting Started](#getting-started)
+  - [Installation](#installation)
+  - [Configuration](#configuration)
+  - [Starting](#starting)
 - [License](#license)
 - [Contribution](#contribution)
 
-# AltV Server Manager
+<h1 id="altv-server-manager">AltV Server Manager</h1>
 
 AltV Server Manager is a web application designed to simplify the management of AltV servers. It provides a user-friendly interface for server administrators, allowing them to monitor and control their servers with ease.
 
 <img src="screenshot.png" />
 
-## Features to be Implemented
+<h2 id="features-to-be-implemented">Features to be Implemented</h2>
 
 - [ ] Start server button
 - [ ] Stop server button
@@ -32,7 +26,7 @@ AltV Server Manager is a web application designed to simplify the management of 
 - [ ] Player list
 - [ ] Player management (e.g., banning)
 
-## Completed Features
+<h2 id="completed-features">Completed Features</h2>
 
 - [x] Discord Login
 - [x] Server creation
@@ -45,14 +39,14 @@ AltV Server Manager is a web application designed to simplify the management of 
   - Yellow: The server is currently being installed.
   - Red: The server is neither installed nor being installed, and needs to be installed by pressing the install button.
 
-## Getting Started
+<h2 id="getting-started">Getting Started 🚀</h2>
 
 Before you begin, ensure that you have met the following requirements:
 
 * You have installed the latest version of [Node.js and npm](https://nodejs.org/en/download/).
 * You have installed [Git](https://git-scm.com/downloads) on your machine.
 
-### Installation
+<h3 id="installation">Installation 🛠️</h3>
 
 1. Clone this repository:
    ```bash
@@ -71,7 +65,7 @@ Before you begin, ensure that you have met the following requirements:
    yarn install
    ```
 
-### Configuration
+<h3 id="configuration">Configuration ⚙️</h3>
 
 1. Copy the `.env.example` file and rename it to `.env`. Fill it with the necessary environment variables as per the provided settings.
 2. Run the following commands to migrate the database:
@@ -85,7 +79,7 @@ Before you begin, ensure that you have met the following requirements:
    yarn prisma migrate dev
    ```
 
-### Starting
+<h3 id="starting">Starting 🎬</h3>
 
 To start the panel, run the following command:
 ```bash
@@ -98,9 +92,9 @@ yarn dev
 
 After starting the development server, open your web browser and navigate to `http://localhost:3000`. From there, you can add your AltV servers and start managing them.
 
-## License 📜
+<h2 id="license">License 📜</h2>
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## Contribution 🤝
+<h2 id="contribution">Contribution 🤝</h2>
 Contributions are welcome! If you have a feature request, bug report, or proposal for code improvement, please feel free to open an issue or submit a pull request.
