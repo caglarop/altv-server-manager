@@ -45,14 +45,14 @@ AltV Server Manager is a web application designed to simplify the management of 
   - Yellow: The server is currently being installed.
   - Red: The server is neither installed nor being installed, and needs to be installed by pressing the install button.
 
-## 🚀 Getting Started {#getting-started}
+## Getting Started 🚀
 
 Before you begin, ensure that you have met the following requirements:
 
 * You have installed the latest version of [Node.js and npm](https://nodejs.org/en/download/).
 * You have installed [Git](https://git-scm.com/downloads) on your machine.
 
-### 🛠️ Installation {#installation}
+### Installation 🛠️
 
 1. Clone this repository:
    ```bash
@@ -71,7 +71,7 @@ Before you begin, ensure that you have met the following requirements:
    yarn install
    ```
 
-### ⚙️ Configuration {#configuration}
+### Configuration ⚙️
 
 1. Copy the `.env.example` file and rename it to `.env`. Fill it with the necessary environment variables as per the provided settings.
 2. Run the following commands to migrate the database:
@@ -85,7 +85,7 @@ Before you begin, ensure that you have met the following requirements:
    yarn prisma migrate dev
    ```
 
-### 🎬 Starting {#starting}
+### Starting 🎬
 
 To start the panel, run the following command:
 ```bash
@@ -98,9 +98,9 @@ yarn dev
 
 After starting the development server, open your web browser and navigate to `http://localhost:3000`. From there, you can add your AltV servers and start managing them.
 
-## 📜 License {#license}
+## License 📜
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## 🤝 Contribution {#contribution}
+## Contribution 🤝
 Contributions are welcome! If you have a feature request, bug report, or proposal for code improvement, please feel free to open an issue or submit a pull request.
