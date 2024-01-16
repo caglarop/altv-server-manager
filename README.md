@@ -9,12 +9,12 @@
 - [AltV Server Manager](#altv-server-manager)
 - [Features to be Implemented](#features-to-be-implemented)
 - [Completed Features](#completed-features)
-- [Getting Started](#getting-started)
-  - [Installation](#installation)
-  - [Configuration](#configuration)
-  - [Starting](#starting)
-- [License](#license)
-- [Contribution](#contribution)
+- [Getting Started](#%F0%9F%9A%80-getting-started)
+  - [Installation](#%F0%9F%9B%A0%EF%B8%8F-installation)
+  - [Configuration](#%E2%9A%99%EF%B8%8F-configuration)
+  - [Starting](#%F0%9F%8E%AC-starting)
+- [License](#%F0%9F%93%9C-license)
+- [Contribution](#%F0%9F%A4%9D-contribution)
 
 # AltV Server Manager
 
