@@ -15,7 +15,7 @@ export default function Input({
       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
         onChange && onChange(e)
       }
-      className={`rounded border border-white/10 bg-transparent p-3 !outline-none !ring-0 transition hover:border-primary ${props.className}`}
+      className={`rounded border border-white/10 bg-transparent p-3 !outline-none !ring-0 transition hover:border-white focus:border-primary ${props.className}`}
     />
   );
 }

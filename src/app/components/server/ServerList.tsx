@@ -31,7 +31,7 @@ export function ServerList() {
                     ? "bg-yellow-500"
                     : server.isInstalled
                       ? "bg-green-500"
-                      : "bg-red-500",
+                      : "bg-gray-500",
                 )}
               ></div>
               <span>{server.name}</span>

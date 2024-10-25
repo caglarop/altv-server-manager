@@ -5,13 +5,21 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import Button from "../button/Button";
 import { api } from "@/trpc/react";
+import { useRouter } from "next/navigation";
 
 export default function ServerInfo({ data }: { data: Server }) {
   const [tab, setTab] = useState("server");
+  const router = useRouter();
 
   const control = api.server.controlServer.useMutation({
     onSuccess: async (res) => {
       alert(JSON.stringify(res));
+    },
+  });
+
+  const deleteServer = api.server.deleteServer.useMutation({
+    onSuccess: () => {
+      router.push("/");
     },
   });
 
@@ -70,7 +78,20 @@ export default function ServerInfo({ data }: { data: Server }) {
             </Button>
           </div>
         )}
-        {tab === "settings" && <div>Settings coming soon!</div>}
+        {tab === "settings" && (
+          <div>
+            <Button
+              className="mt-4 bg-red-500 hover:bg-red-600"
+              onClick={() => {
+                if (confirm("Are you sure you want to delete this server?")) {
+                  deleteServer.mutate({ id: data.id });
+                }
+              }}
+            >
+              Delete Server
+            </Button>
+          </div>
+        )}
       </div>
     </>
   );

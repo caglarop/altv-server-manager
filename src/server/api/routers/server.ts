@@ -106,4 +106,26 @@ export const serverRouter = createTRPCRouter({
 
       return server;
     }),
+
+  deleteServer: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const server = await ctx.db.server.findUnique({
+        where: { id: input.id },
+      });
+
+      if (!server) {
+        throw new Error("SERVER_NOT_FOUND");
+      }
+
+      if (server.createdById !== ctx.session.user.id) {
+        throw new Error("UNAUTHORIZED");
+      }
+
+      await ctx.db.server.delete({
+        where: { id: input.id },
+      });
+
+      return { success: true, message: "SUCCESSFULLY" };
+    }),
 });
